@@ -19,9 +19,11 @@ async function deleteUser(req, res) {
             errCode: 1,
             message: 'Missing..'
         })
+    } else {
+        let message = await CRUDService.deleteById(req.body.id);
+        return res.status(200).json(message);
     }
-    let message = await CRUDService.deleteById(req.body.id);
-    return res.status(200).json(message);
+
 }
 //end crud
 
@@ -63,11 +65,37 @@ async function getAllCode(req, res) {
     return res.status(200).json(allCode);
 }
 
+async function getAllClinic(req, res) {
+    try {
+        let resp = await CRUDService.getAllClinic();
+        res.status(200).json(resp);
+    } catch (err) {
+        return res.status(200).json({
+            errCode: 1,
+            message: 'error from server'
+        })
+    }
+}
+
+async function getClinicById(req, res) {
+    try {
+        let resp = await CRUDService.getClinicById(req.params.id);
+        res.status(200).json(resp);
+    } catch (err) {
+        return res.status(200).json({
+            errCode: 1,
+            message: 'error from server'
+        })
+    }
+}
+
 module.exports = {
     handleLogin,
     addUser,
     getAllUser,
     editUser,
     deleteUser,
-    getAllCode
+    getAllCode,
+    getAllClinic,
+    getClinicById
 }

@@ -31,6 +31,22 @@ router.post('/newSpecialty', specialtyController.createNewSpecialty);
 router.get('/getAllSpecialty', specialtyController.getAllSpecialty);
 router.get('/getSpecialtyById/:id', specialtyController.getSpecialtyById);
 
-router.get('/getDoctorBySpecialty/:specialty', doctorController.getDoctorBySpecialty)
+router.get('/getDoctorBySpecialty/:specialty', doctorController.getDoctorBySpecialty);
+
+router.get('/getScheduleById/:id', specialtyController.getScheduleById);
+
+router.post('/newClinic', specialtyController.newClinic);
+
+router.get('/getAllClinic', controller.getAllClinic);
+
+router.get('/getClinicById/:id', controller.getClinicById);
+
+router.get('/getPatientForDoctor', doctorController.getPatientForDoctor);
+
+router.get('/getPatientByDoctor', doctorController.getPatientByDoctor);
+
+router.post('/sendRemedy', doctorController.sendRemedy);
+
+router.delete('/delPatient/:id', doctorController.delPatient);
 
 module.exports = router;

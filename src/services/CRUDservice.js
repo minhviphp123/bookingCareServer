@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('../model/userModel');
+const Clinic = require('../model/clinic');
 
 async function createNewUser(data) {
     return new Promise(async function (resolve, reject) {
@@ -43,13 +44,34 @@ function deleteById(id) {
                 })
             }
 
-            // if (user) {
-            //     await user.remove().exec();
-            //     resolve({
-            //         errCode: 0,
-            //         message: 'deleted user!'
-            //     })
-            // }
+        } catch (err) {
+            reject(err);
+        }
+    })
+}
+
+function getAllClinic() {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let clinics = await Clinic.find({}).limit(6);
+            resolve({
+                errCode: 0,
+                clinics: clinics
+            })
+        } catch (err) {
+            reject(err);
+        }
+    })
+}
+
+function getClinicById(id) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let clinicById = await Clinic.find({ _id: mongoose.Types.ObjectId(id) });
+            resolve({
+                errCode: 0,
+                clinicById: clinicById
+            })
         } catch (err) {
             reject(err);
         }
@@ -59,5 +81,7 @@ function deleteById(id) {
 module.exports = {
     createNewUser,
     deleteById,
-    editUser
+    editUser,
+    getAllClinic,
+    getClinicById
 }

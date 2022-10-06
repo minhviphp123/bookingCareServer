@@ -108,11 +108,67 @@ async function getDoctorBySpecialty(req, res) {
     }
 }
 
+async function getPatientForDoctor(req, res) {
+    try {
+
+        let response = await doctorService.getPatientForDoctor();
+        res.status(200).json(response);
+    } catch (err) {
+        return res.status(200).json({
+            errCode: -1,
+            message: 'Error from server...'
+        })
+    }
+}
+
+async function getPatientByDoctor(req, res) {
+    try {
+        let response = await doctorService.getPatientByDoctor(req.query.doctorId, req.query.date);
+        res.status(200).json(response);
+    } catch (err) {
+        return res.status(200).json({
+            errCode: -1,
+            message: 'Error from server...'
+        })
+    }
+}
+
+async function sendRemedy(req, res) {
+    try {
+        if (req.body) {
+            let response = await doctorService.sendRemedy(req.body);
+            res.status(200).json(response);
+        }
+    } catch (err) {
+        return res.status(200).json({
+            errCode: -1,
+            message: 'Error from server...'
+        })
+    }
+}
+
+async function delPatient(req, res) {
+    try {
+        if (req.params.id) {
+            console.log(req.params.id);
+            let response = await doctorService.delPatient(req.params.id);
+            res.status(200).json(response);
+        }
+    } catch (err) {
+        return res.status(200).json({
+            errCode: -1,
+            message: 'Error from server...'
+        })
+    }
+}
+
 module.exports = {
     getDoctorHome,
     postInfoDoctor,
     getDetailDoctor,
     getMarkdown, editMarkdown,
     newSchedule, getScheduleByDate,
-    getDoctorBySpecialty
+    getDoctorBySpecialty, getPatientForDoctor,
+    getPatientByDoctor, sendRemedy,
+    delPatient
 }

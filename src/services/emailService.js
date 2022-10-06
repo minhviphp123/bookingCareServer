@@ -1,33 +1,67 @@
-require('dotenv').config();
 const nodemailer = require('nodemailer');
 
-function sendEmail(receiverEmail) {
-    // async..await is not allowed in global scope, must use a wrapper
-    async function main() {
-        // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 587,
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: process.env.EMAIL_APP, // generated ethereal user
-                pass: process.env.EMAIL_APP_PASSWORD, // generated ethereal password
-            },
-        });
+function sendEmail() {
+    const nodemailer = require('nodemailer');
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'minhtq9700@gmail.com',
+            pass: 'bodkeaacfcwylwff'
+        }
+    });
 
-        // send mail with defined transport object
-        let info = await transporter.sendMail({
-            from: '"minhtran 👻" <minhtq9700@gmail.com>', // sender address
-            to: receiverEmail, // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: "Hello world?", // plain text body
-            html: "<b>Hello world?</b>", // html body
-        });
+    var mailOptions = {
+        from: 'minhtq9700@gmail.com',
+        to: 'minh79048@st.vimaru.edu.vn',
+        subject: 'Sending Email using Node.js',
+        text: 'That was easy!'
+    };
 
-        console.log(1);
-    }
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
+
+async function sendAttachment(data) {
+    let transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+            user: 'minhtq9700@gmail.com',
+            pass: 'bodkeaacfcwylwff'
+        },
+    });
+
+    var mailOptions = {
+        from: 'minhtq9700@gmail.com',
+        to: data.email,
+        subject: 'Sending Email using Node.js',
+        text: 'Confirmed!',
+        attachments: [
+            {
+                filename: 'text1.png',
+                content: data.imgBase64.split("base64,")[1],
+                encoding: 'base64'
+            }
+        ]
+
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
 }
 
 module.exports = {
-    sendEmail
+    sendEmail,
+    sendAttachment
 }

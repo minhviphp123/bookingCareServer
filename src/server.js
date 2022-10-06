@@ -5,6 +5,7 @@ const router = require('./route/web');
 const db = require('./config/connectDB');
 const cors = require('cors');
 const moment = require('moment');
+const { Logger } = require('mongodb');
 
 const port = 4000;
 
@@ -24,7 +25,3 @@ app.use('/', router);
 app.listen(port, function () {
     console.log(`http://localhost:${port}`);
 })
-
-// let date = '24.09.2022';
-// let parsedDate = moment(date, 'DD.MM.YYYY')
-// console.log(parsedDate.toISOString());
