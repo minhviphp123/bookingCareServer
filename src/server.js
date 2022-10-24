@@ -7,7 +7,7 @@ const cors = require('cors');
 const moment = require('moment');
 const { Logger } = require('mongodb');
 
-const port = 4000;
+const port = process.env.PORT || 4000;
 
 db.connect();
 

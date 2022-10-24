@@ -303,6 +303,24 @@ function delPatient(id) {
     })
 }
 
+function delScheduleByTime(doctorId, time) {
+    return new Promise(async function (resolve, reject) {
+        try {
+            const patient = await Schedule.findOne({ doctorId: doctorId, time: time });
+            if (patient) {
+                await Schedule.deleteOne({ doctorId: doctorId, time: time });
+                resolve({
+                    errCode: 0,
+                    message: 'deleted user!'
+                })
+            }
+
+        } catch (err) {
+            reject(err);
+        }
+    })
+}
+
 module.exports = {
     getTopDoctor,
     saveDoctorInfo,
@@ -310,5 +328,6 @@ module.exports = {
     editMarkdown, newSchedule,
     getScheduleByDate, getDoctorBySpecialty,
     getPatientForDoctor, getPatientByDoctor,
-    sendRemedy, delPatient
+    sendRemedy, delPatient,
+    delScheduleByTime
 }

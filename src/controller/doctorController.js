@@ -162,6 +162,21 @@ async function delPatient(req, res) {
     }
 }
 
+async function delScheduleByTime(req, res) {
+    try {
+        if (req.params.time && req.params.doctorId) {
+            // console.log(req.params.id);
+            let response = await doctorService.delScheduleByTime(req.params.doctorId, req.params.time);
+            res.status(200).json(response);
+        }
+    } catch (err) {
+        return res.status(200).json({
+            errCode: -1,
+            message: 'Error from server...'
+        })
+    }
+}
+
 module.exports = {
     getDoctorHome,
     postInfoDoctor,
@@ -170,5 +185,5 @@ module.exports = {
     newSchedule, getScheduleByDate,
     getDoctorBySpecialty, getPatientForDoctor,
     getPatientByDoctor, sendRemedy,
-    delPatient
+    delPatient, delScheduleByTime
 }

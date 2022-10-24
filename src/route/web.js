@@ -49,4 +49,6 @@ router.post('/sendRemedy', doctorController.sendRemedy);
 
 router.delete('/delPatient/:id', doctorController.delPatient);
 
+router.delete('/delScheduleByTime/:doctorId/:time', doctorController.delScheduleByTime);
+
 module.exports = router;
